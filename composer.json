@@ -1,0 +1,19 @@
+{
+    "description": "A package to embed NeosRulez.Blog blog posts in NeosRulez.Newsletter newsletter",
+    "type": "neos-package",
+    "name": "neosrulez/directmail-blogposts",
+    "require": {
+        "neosrulez/directmail": "^1.0",
+        "neosrulez/blog": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "NeosRulez\\DirectMail\\BlogPosts\\": "Classes/"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "NeosRulez.DirectMail.BlogPosts"
+        }
+    }
+}

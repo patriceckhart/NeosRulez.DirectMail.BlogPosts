@@ -1,0 +1,57 @@
+prototype(NeosRulez.DirectMail.BlogPosts:Content.BlogPosts) < prototype(Neos.Neos:ContentComponent) {
+
+    items = ${q(node).property('items')}
+    showBlogDate = ${q(node).property('showBlogDate')}
+    showBlogSubtitle = ${q(node).property('showBlogSubtitle')}
+
+    padding = ${q(node).property('container') == 'container' ? '10' : '0'}
+
+    mso1 = ${'<!--[if mso]><table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0"><tr><td style="width:330px;padding:' + this.padding + 'px; valign="center"><![endif]-->'}
+    mso2 = ${'<!--[if mso]></td><td style="width:330px;padding:' + this.padding + 'px; valign="center"><![endif]-->'}
+    mso3 = ${'<!--[if mso]></td></tr></table><![endif]-->'}
+
+    renderer = afx`
+        <NeosRulez.DirectMail:Component.AbstractContent padding="0">
+            <div @if.render={props.items && Array.length(props.items) > 0} class="two-col" style="text-align:center;" >
+                {props.mso1}
+                <Neos.Fusion:Loop items={props.items} >
+                    <NeosRulez.DirectMail.BlogPosts:Content.BlogPosts.Item item={item} showBlogDate={props.showBlogDate} showBlogSubtitle={props.showBlogSubtitle} />
+                    {iterator.isLast ? '' : props.mso2}
+                </Neos.Fusion:Loop>
+                {props.mso3}
+            </div>
+        </NeosRulez.DirectMail:Component.AbstractContent>
+    `
+}
+
+prototype(NeosRulez.DirectMail.BlogPosts:Content.BlogPosts.Item) < prototype(Neos.Fusion:Component) {
+
+    item = false
+    showBlogDate = false
+    showBlogSubtitle = false
+
+    padding = ${q(node).property('container') == 'container' ? '10' : '0'}
+    paddingStyleAttribute = ${'padding:' + this.padding + 'px'}
+
+    renderer = afx`
+        <div class="column" style="width:100%;min-width:330px;max-width:330px;display:inline-block;vertical-align:middle;text-align:left;" >
+            <div style={props.paddingStyleAttribute} >
+                <div @if.render={item.properties.blogimages && Array.length(item.properties.blogimages) > 0} style="padding-bottom:5px;" >
+                    <Neos.Neos:NodeLink node={props.item} absolute={true} >
+                        <NeosRulez.DirectMail:Content.Image.ImageTag image={item.properties.blogimages[0]} width="330" />
+                    </Neos.Neos:NodeLink>
+                </div>
+                <p @if.render={props.showBlogDate} style="padding-bottom:5px;">{Date.format(item.properties.blogdate, 'd.m.Y')}</p>
+                <h3 style="padding-bottom:5px;">{item.properties.title}</h3>
+                <div @if.render={props.showBlogSubtitle} style="padding-bottom:5px;" >
+                    {item.properties.blogsubtitle ? String.cropAtWord(item.properties.blogsubtitle, 200, ' ...') : ''}
+                </div>
+                <Neos.Neos:NodeLink node={props.item} absolute={true} >
+                    <strong>
+                        {I18n.translate('NeosRulez.DirectMail.BlogPosts:NodeTypes.Content.BlogPosts:content.showMoreButtonLabel')}
+                    </strong>
+                </Neos.Neos:NodeLink>
+            </div>
+        </div>
+    `
+}

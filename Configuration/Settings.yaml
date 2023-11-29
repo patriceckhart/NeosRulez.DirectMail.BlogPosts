@@ -1,0 +1,10 @@
+Neos:
+  Neos:
+    fusion:
+      autoInclude:
+        NeosRulez.DirectMail.BlogPosts: true
+    userInterface:
+      translation:
+        autoInclude:
+          NeosRulez.DirectMail.BlogPosts:
+            - 'NodeTypes/*'

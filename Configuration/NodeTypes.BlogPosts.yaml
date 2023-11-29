@@ -1,0 +1,42 @@
+'NeosRulez.DirectMail.BlogPosts:Content.BlogPosts':
+  superTypes:
+    'NeosRulez.DirectMail:Component.AbstractContent': true
+  ui:
+    label: i18n
+    icon: far fa-file-alt
+    position: end
+    inspector:
+      groups:
+        content:
+          label: i18n
+          icon: far fa-file-alt
+  properties:
+    items:
+      type: references
+      ui:
+        label: i18n
+        reloadIfChanged: true
+        inspector:
+          group: content
+          position: 1
+          editorOptions:
+            allowEmpty: false
+            nodeTypes: [ 'NeosRulez.Blog:Document.BlogPost' ]
+    showBlogDate:
+      type: boolean
+      defaultValue: true
+      ui:
+        label: i18n
+        reloadIfChanged: true
+        inspector:
+          group: content
+          position: 2
+    showBlogSubtitle:
+      type: boolean
+      defaultValue: true
+      ui:
+        label: i18n
+        reloadIfChanged: true
+        inspector:
+          group: content
+          position: 3
